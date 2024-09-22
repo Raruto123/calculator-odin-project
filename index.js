@@ -1,5 +1,9 @@
 let firstItem = 3;
 let secondItem = 2;
+let object = {
+    secondItems : document.getElementsByTagName("div").item(1)
+}
+console.log(object.secondItems)
 let beMinus = false;
 let beAdd = false;
 
