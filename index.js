@@ -1,27 +1,41 @@
 let firstItem = 3;
 let secondItem = 2;
-let object = {
-    secondItems : document.getElementsByTagName("div").item(1)
-}
-console.log(object.secondItems)
-let beMinus = false;
 let beAdd = false;
+let beMinus = false;
+let beMultiply = false;
+let beDivide = false;
 
 
 
-function addOperation(itemOne, itemTwo) {
+function addOperation() {
     beAdd  = true;
-    beMinus = false
+    beMinus = false;
+    beDivide = false;
+    beMultiply = false;
 
-
-    return itemOne+itemTwo
 };
 
-function minusOperation(itemOne, itemTwo) {
+function minusOperation() {
     beMinus = true;
-    beAdd = false
+    beAdd = false;
+    beMultiply = false;
+    beDivide = false;
 
-    return itemOne - itemTwo
+}
+
+function multiplyOperation() {
+    beMultiply = true;
+    beAdd = false;
+    beMinus = false;
+    beDivide = false;
+}
+
+function divideOperation() {
+    beDivide = true;
+    beMultiply = false;
+    beAdd = false;
+    beMinus = false;
+
 }
 
 function operate(itemOne, itemTwo, operator) {
@@ -31,10 +45,14 @@ function operate(itemOne, itemTwo, operator) {
         return results = itemOne - itemTwo
     } else if (beAdd) {
         return results = itemOne+itemTwo
+    } else if (beMultiply) {
+        return results = itemOne * itemTwo
+    } else if (beDivide) {
+        return results = itemOne/itemTwo
     }
 
     return results
 }
 
-console.log(beAdd)
-console.log(operate(firstItem, secondItem, addOperation(firstItem, secondItem)))
+
+console.log(`%c🎨 ⍨ ${operate(firstItem, secondItem, divideOperation())}`, "font-size:30px")
