@@ -12,7 +12,8 @@
 
 
 #calculator {
-    background-color: red;
+    background-color: rgb(44, 45, 52);
+    border: 1px red solid;
     border-radius: 5px;
     width: 250px;
     height: 400px;
@@ -23,14 +24,35 @@
 }
 
 .calculator-utility-buttons div {
-    background-color: pink;
     height: 30px;
     width: 30px;
     clip-path: circle(20%);
 }
 
+.exit-button {
+    background-color: rgb(203, 77, 67);
+}
+
+.reduce-button {
+    background-color: rgb(245, 191, 79);
+}
+
+.void-button {
+    background-color: rgb(81, 82, 83);
+    opacity: 50%;
+}
+
 #calculator-display {
     padding-top: 50px;
+    /* border: 1px solid yellow; */
+    display: flex;
+    justify-content: end;
+    /* font-size: 1.2rem; */
+    /* font-size: 2rem; */
+    font-size: 32px;
+    /* font-size: 1rem; */
+    /* font-size: 16px; */
+    /* font-size: 19.2px; */
 }
 
 .calculator-buttons {
