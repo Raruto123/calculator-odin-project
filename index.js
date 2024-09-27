@@ -55,4 +55,5 @@ function operate(itemOne, itemTwo, operator) {
 }
 
 
-console.log(`%c🎨 ⍨ ${operate(firstItem, secondItem, divideOperation())}`, "font-size:30px")
+console.log(`%c🎨 ⍨ ${operate(firstItem, secondItem, divideOperation())}`, "font-size:30px; color:red")
+console.log(`%c🎨 ⍨ ${firstItem} ⍨ firstItem`, "Your_CSS_Goes_Here");
