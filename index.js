@@ -1,10 +1,31 @@
+/*
+1) l'appuie sur une touche affiche la valeur de la touche
+2) 
+ */
+
+
+
 let firstItem = 3;
 let secondItem = 2;
 let beAdd = false;
 let beMinus = false;
 let beMultiply = false;
 let beDivide = false;
+let numbersButtons = {
+    numbers : document.getElementsByClassName("numbers"),
+}
+let screenDisplay = document.getElementsByClassName("display")[0];
 
+// console.log(`%c🎨 ⍨ numbersButtons`, "color:pink; font-weight:bold; font-size:30px", numbersButtons.one);
+
+function iteration(button) {
+    
+    for(let i = 0; i < )
+}
+
+function displayOnScreen(value) {
+    screenDisplay.textContent = value
+}
 
 
 function addOperation() {
@@ -55,5 +76,18 @@ function operate(itemOne, itemTwo, operator) {
 }
 
 
-console.log(`%c🎨 ⍨ ${operate(firstItem, secondItem, divideOperation())}`, "font-size:30px; color:red")
-console.log(`%c🎨 ⍨ ${firstItem} ⍨ firstItem`, "Your_CSS_Goes_Here");
+
+
+//À creuser
+
+// let objects = {
+//     a:123,
+//     b:124
+// }
+// console.log(`%c🎨 ⍨ ${operate}`, "font-size:30px; color:red")
+// console.log(`%c🎨 ⍨ operate`, "color:violet; font-weight:bold", operate);
+// console.log(`%c🎨 ⍨ ${firstItem} ⍨ firstItem`, "Your_CSS_Goes_Here");
+// console.log(`%c🎨 ⍨ ${objects} ⍨ firstItem`, "Your_CSS_Goes_Here");
+// console.log(`this is objects : ${JSON.stringify(objects)}`);
+// console.log(`%cthis is objects %o bvfhjfl`, "color:red;font-size:30px",beDivide)
+// console.log(objects)
