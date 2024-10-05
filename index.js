@@ -1,32 +1,53 @@
 /*
-1) l'appuie sur une touche affiche la valeur de la touche
-2) 
+1)lorsque quelqu'un tape une suite de chiffres (premier nombre)
+2)appuie sur l'opérateur 
+3)après l'opérateur c'est la deuxième suite de chiffres (deuxième nombre)
+4) appuyer sur la touche = fait jouer la fonction operate()
  */
 
 
 
-let firstItem = 3;
-let secondItem = 2;
+
 let beAdd = false;
 let beMinus = false;
 let beMultiply = false;
 let beDivide = false;
-let numbersButtons = {
+let calculatorButtons = {
     numbers : document.getElementsByClassName("numbers"),
+    operators : document.getElementsByClassName("operators"),
+    comma : document.getElementsByClassName("comma"),
+    aczpercentage : document.getElementsByClassName("ac-z-percentage")
 }
 let screenDisplay = document.getElementsByClassName("display")[0];
 
-// console.log(`%c🎨 ⍨ numbersButtons`, "color:pink; font-weight:bold; font-size:30px", numbersButtons.one);
+// let displayValue = screenDisplay.textContent;
+
+
+
+function displayOnScreen(value) {
+    // displayValue += value;
+    screenDisplay.textContent += value;
+}
 
 function iteration(button) {
     
-    for(let i = 0; i < )
+    for(let i = 0; i < button.length; i++ ){
+        button[i].addEventListener("click", (event) => {
+            // displayOnScreen(event.target.value)
+            parseInt(event.target.value)
+        });
+    }
 }
 
-function displayOnScreen(value) {
-    screenDisplay.textContent = value
-}
+iteration(calculatorButtons.numbers);
+iteration(calculatorButtons.operators);
+iteration(calculatorButtons.comma);
+iteration(calculatorButtons.aczpercentage);
 
+
+let firstItem = iteration(calculatorButtons.numbers);
+console.log(firstItem)
+let secondItem = iteration(calculatorButtons.numbers);
 
 function addOperation() {
     beAdd  = true;
@@ -72,9 +93,11 @@ function operate(itemOne, itemTwo, operator) {
         return results = itemOne/itemTwo
     }
 
-    return results
+    return results;
 }
 
+console.log(`%c🎨 ⍨ operate`, "color:violet; font-weight:bold", 
+    operate(firstItem, secondItem, addOperation()));
 
 
 
