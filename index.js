@@ -19,6 +19,7 @@ let calculatorButtons = {
     aczpercentage : document.getElementsByClassName("ac-z-percentage")
 }
 let screenDisplay = document.getElementsByClassName("display")[0];
+let firstItem = "";
 
 // let displayValue = screenDisplay.textContent;
 
@@ -27,27 +28,88 @@ let screenDisplay = document.getElementsByClassName("display")[0];
 function displayOnScreen(value) {
     // displayValue += value;
     screenDisplay.textContent += value;
+
+    return value
 }
 
 function iteration(button) {
-    
+
     for(let i = 0; i < button.length; i++ ){
         button[i].addEventListener("click", (event) => {
-            // displayOnScreen(event.target.value)
-            parseInt(event.target.value)
+            displayOnScreen(event.target.value)
+            // addToFirstItem(calculatorButtons.numbers[i])
         });
     }
 }
 
+
 iteration(calculatorButtons.numbers);
-iteration(calculatorButtons.operators);
-iteration(calculatorButtons.comma);
-iteration(calculatorButtons.aczpercentage);
+// iteration(calculatorButtons.operators);
+// iteration(calculatorButtons.comma);
+// iteration(calculatorButtons.aczpercentage);
+
+// function addToFirstItem() {
+
+//     for(let i = 0; i < calculatorButtons.numbers.length; i++) {
+
+//         console.log(calculatorButtons.numbers)
+//         firstItem += calculatorButtons.numbers[i].value
+    
+//         // if (i === 7) {
+//         //     firstItem += calculatorButtons.numbers[i].value
+//         // }
+//         // if (i === 5) {
+//         //     firstItem += calculatorButtons.numbers[i].value
+//         // }
+        
+//         // if (i === 4) {
+//         //     firstItem += calculatorButtons.numbers[i].value
+//         // }
+//         return firstItem
+//     }
+// }
 
 
-let firstItem = iteration(calculatorButtons.numbers);
-console.log(firstItem)
-let secondItem = iteration(calculatorButtons.numbers);
+
+// function test() {
+//     for(let i = 0; i < calculatorButtons.numbers.length; i++) {
+//         calculatorButtons.numbers[i].addEventListener("click", 
+//             addToFirstItem(calculatorButtons.numbers[i])  
+//         )
+//     }
+// }
+
+function test() {
+    for(let i = 0; i < calculatorButtons.numbers.length; i++) {
+        calculatorButtons.numbers[i].addEventListener("click", () => {
+            addToFirstItem(calculatorButtons.numbers[i])
+            console.log(firstItem)
+        }
+    )}
+}
+function addToFirstItem(button) {
+
+    firstItem += button.value
+    
+}
+// function test() {
+//     for(let i = 0; i < calculatorButtons.numbers.length; i++) {
+//         calculatorButtons.numbers[i].addEventListener("click", (event) => {
+//             console.log(calculatorButtons.numbers[i].value)
+//             console.log(event.target.value)
+//             addToFirstItem(event.target);
+//             // console.log(firstItem)
+//         })
+//     }
+// }
+
+
+
+console.log(`%c🎨 ⍨ ${firstItem}`, "font-size:30px")
+test()
+
+
+
 
 function addOperation() {
     beAdd  = true;
@@ -96,8 +158,7 @@ function operate(itemOne, itemTwo, operator) {
     return results;
 }
 
-console.log(`%c🎨 ⍨ operate`, "color:violet; font-weight:bold", 
-    operate(firstItem, secondItem, addOperation()));
+// console.log(`%c🎨 ⍨ operate`, "color:violet; font-weight:bold", operate(firstItem, secondItem, addOperation()));
 
 
 
