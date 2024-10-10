@@ -1,13 +1,3 @@
-/*
-1)lorsque quelqu'un tape une suite de chiffres (premier nombre)
-2)appuie sur l'opérateur 
-3)après l'opérateur c'est la deuxième suite de chiffres (deuxième nombre)
-4) appuyer sur la touche = fait jouer la fonction operate()
- */
-
-
-
-
 let beAdd = false;
 let beMinus = false;
 let beMultiply = false;
@@ -19,24 +9,36 @@ let calculatorButtons = {
     aczpercentage : document.getElementsByClassName("ac-z-percentage")
 }
 let screenDisplay = document.getElementsByClassName("display")[0];
-let firstItem = "";
+let firstItem = "";//1er opérande
+let secondItem = "";//2eme opérande
+let currentOperator = null;//l'Opérateur du calcul actuel
+let isSecondItem = false;//Savoir si le deuxième nombre est entrain d'être entré
 
-// let displayValue = screenDisplay.textContent;
 
-
-
-function displayOnScreen(value) {
+//to see on the display the buttons pressed
+function displayNumbersOnScreen(value) {
     // displayValue += value;
-    screenDisplay.textContent += value;
-
-    return value
+    // screenDisplay.textContent += value;
+    if (!isSecondItem) {
+        firstItem += value;
+        screenDisplay.textContent += value;
+    } else {
+        secondItem += value;
+        screenDisplay.textContent += value
+    }
+}
+function displayOperatorsOnScreen(value) {
+    screenDisplay.textContent += value
 }
 
+//to be able to click on the buttons
 function iteration(button) {
 
     for(let i = 0; i < button.length; i++ ){
-        button[i].addEventListener("click", (event) => {
-            displayOnScreen(event.target.value)
+        button[i].addEventListener("click", (event) => {   
+            displayNumbersOnScreen(event.target.value)
+            console.log(`%c🎨 ⍨ ${firstItem}`, "font-size:30px;color:red");
+            console.log(`%c🎨 ⍨ ${secondItem}`, "font-size:30px;color:blue")
             // addToFirstItem(calculatorButtons.numbers[i])
         });
     }
@@ -48,67 +50,24 @@ iteration(calculatorButtons.numbers);
 // iteration(calculatorButtons.comma);
 // iteration(calculatorButtons.aczpercentage);
 
-// function addToFirstItem() {
+function basculateToSecondItem() {
 
-//     for(let i = 0; i < calculatorButtons.numbers.length; i++) {
-
-//         console.log(calculatorButtons.numbers)
-//         firstItem += calculatorButtons.numbers[i].value
-    
-//         // if (i === 7) {
-//         //     firstItem += calculatorButtons.numbers[i].value
-//         // }
-//         // if (i === 5) {
-//         //     firstItem += calculatorButtons.numbers[i].value
-//         // }
-        
-//         // if (i === 4) {
-//         //     firstItem += calculatorButtons.numbers[i].value
-//         // }
-//         return firstItem
-//     }
-// }
-
-
-
-// function test() {
-//     for(let i = 0; i < calculatorButtons.numbers.length; i++) {
-//         calculatorButtons.numbers[i].addEventListener("click", 
-//             addToFirstItem(calculatorButtons.numbers[i])  
-//         )
-//     }
-// }
-
-function test() {
-    for(let i = 0; i < calculatorButtons.numbers.length; i++) {
-        calculatorButtons.numbers[i].addEventListener("click", () => {
-            addToFirstItem(calculatorButtons.numbers[i])
-            console.log(firstItem)
+    for(let i = 0; i < calculatorButtons.operators.length; i++) {
+        let iteration = calculatorButtons.operators[i];
+        if(iteration.value === "+") {
+            iteration.addEventListener("click", (event) => {
+                addOperation();
+                displayOperatorsOnScreen(event.target.value)
+                console.log(`%c🎨 ⍨ success`, "color:purple");
+                console.log(`%c🎨 ⍨ ${isSecondItem}`, "color:orange")
+            });
         }
-    )}
+    }
 }
-function addToFirstItem(button) {
 
-    firstItem += button.value
-    
-}
-// function test() {
-//     for(let i = 0; i < calculatorButtons.numbers.length; i++) {
-//         calculatorButtons.numbers[i].addEventListener("click", (event) => {
-//             console.log(calculatorButtons.numbers[i].value)
-//             console.log(event.target.value)
-//             addToFirstItem(event.target);
-//             // console.log(firstItem)
-//         })
-//     }
-// }
+basculateToSecondItem()
 
-
-
-console.log(`%c🎨 ⍨ ${firstItem}`, "font-size:30px")
-test()
-
-
+// console.log(`%c🎨 ⍨ calculatorButtons.operators[+]`, "color:green; font-weight:bold", calculatorButtons.operators[0]);
 
 
 function addOperation() {
@@ -116,6 +75,7 @@ function addOperation() {
     beMinus = false;
     beDivide = false;
     beMultiply = false;
+    isSecondItem = true;
 
 };
 
@@ -124,6 +84,8 @@ function minusOperation() {
     beAdd = false;
     beMultiply = false;
     beDivide = false;
+    isSecondItem = true;
+
 
 }
 
@@ -132,6 +94,8 @@ function multiplyOperation() {
     beAdd = false;
     beMinus = false;
     beDivide = false;
+    isSecondItem = true;
+
 }
 
 function divideOperation() {
@@ -139,6 +103,8 @@ function divideOperation() {
     beMultiply = false;
     beAdd = false;
     beMinus = false;
+    isSecondItem = true;
+
 
 }
 
@@ -157,21 +123,3 @@ function operate(itemOne, itemTwo, operator) {
 
     return results;
 }
-
-// console.log(`%c🎨 ⍨ operate`, "color:violet; font-weight:bold", operate(firstItem, secondItem, addOperation()));
-
-
-
-//À creuser
-
-// let objects = {
-//     a:123,
-//     b:124
-// }
-// console.log(`%c🎨 ⍨ ${operate}`, "font-size:30px; color:red")
-// console.log(`%c🎨 ⍨ operate`, "color:violet; font-weight:bold", operate);
-// console.log(`%c🎨 ⍨ ${firstItem} ⍨ firstItem`, "Your_CSS_Goes_Here");
-// console.log(`%c🎨 ⍨ ${objects} ⍨ firstItem`, "Your_CSS_Goes_Here");
-// console.log(`this is objects : ${JSON.stringify(objects)}`);
-// console.log(`%cthis is objects %o bvfhjfl`, "color:red;font-size:30px",beDivide)
-// console.log(objects)
