@@ -102,6 +102,12 @@ html {font-size: 100%;}
 .ac-z-percentage {
     background-color: rgb(119, 118, 126);
 }
+/* #ac button:active {
+    background-color: hsla(330, 22%, 88%, 0.9);
+} */
+.ac {
+    background-color: rgb(119, 118, 126);
+}
 
 .numbers {
     background-color: rgb(88, 88, 96);
