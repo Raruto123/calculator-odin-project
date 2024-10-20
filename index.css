@@ -67,6 +67,9 @@ html {font-size: 100%;}
 #calculator-display p {
     margin-right: 3px;
 }
+#calculator-display {
+    outline: 1px solid red;
+}
 
 .calculator-buttons {
     /* background-color: green; */

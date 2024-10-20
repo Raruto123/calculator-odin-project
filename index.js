@@ -11,6 +11,7 @@ let calculatorButtons = {
 }
 let acButton = document.getElementsByClassName("ac")[0];
 let screenDisplay = document.getElementsByClassName("display")[0];
+let screenDisplayOperator = document.getElementsByClassName("displayOperator")[0];
 let commaButton = document.getElementsByClassName("comma")[0];
 let firstItem = "0";//1er opérande
 let secondItem = "0";//2eme opérande
@@ -33,7 +34,9 @@ function displayNumbersOnScreen(value) {
     }
 }
 function displayOperatorsOnScreen(operator) {
-    screenDisplay.textContent = operator
+    if (operator) {
+        screenDisplay.textContent = operator
+    }
 }
 
 //to be able to click on the buttons
@@ -127,13 +130,14 @@ function addCommaToFirstItem(comma) {
 }
 
 function addCommaToSecondItem(comma) {
-    // screenDisplay.textContent += comma
+    screenDisplay.textContent += comma
     secondItem += comma
 }
 
 function restrictionToCommas() {
 
-    //verifier le first item en 1er
+    if (!isSecondItem) {
+            //verifier le first item en 1er
     if (firstItem.includes(".")) {
         console.log(`%c🎨 ⍨ point`, "Your_CSS_Goes_Here");
         // commaButton.removeEventListener("click", restrictionToCommas);
@@ -141,8 +145,8 @@ function restrictionToCommas() {
         addCommaToFirstItem(".")
         console.log(`%c🎨 ⍨ no point`, "Your_CSS_Goes_Here");
     }
-
-    //passer à la vérification de second item en second lieu
+    } else {
+            //passer à la vérification de second item en second lieu
     if (secondItem.includes(".")) {
         console.log(`%c🎨 ⍨ point`, "Your_CSS_Goes_Here");
         // commaButton.removeEventListener("click", restrictionToCommas);
@@ -150,6 +154,8 @@ function restrictionToCommas() {
         addCommaToSecondItem(".")
         console.log(`%c🎨 ⍨ no point`, "Your_CSS_Goes_Here");
     }
+    }
+
 }
 
 commaButton.addEventListener("click", restrictionToCommas)
