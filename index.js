@@ -12,11 +12,11 @@ let calculatorButtons = {
 let acButton = document.getElementsByClassName("ac")[0];
 let screenDisplay = document.getElementsByClassName("display")[0];
 let commaButton = document.getElementsByClassName("comma")[0];
-let firstItem = "";//1er opérande
-let secondItem = "";//2eme opérande
+let firstItem = "0";//1er opérande
+let secondItem = "0";//2eme opérande
 let currentOperator = null;//l'Opérateur du calcul actuel
 let isSecondItem = false;//Savoir si le deuxième nombre est entrain d'être entré
-screenDisplay.textContent = "0";
+screenDisplay.textContent = ""
 
 
 
@@ -42,7 +42,6 @@ function iteration(button) {
     for(let i = 0; i < button.length; i++ ){
         button[i].addEventListener("click", (event) => {   
             displayNumbersOnScreen(event.target.value)
-            console.log(`%c🎨 ⍨ lol`, "Your_CSS_Goes_Here")
             console.log(`%c🎨 ⍨ ${firstItem}`, "font-size:30px;color:red");
             console.log(`%c🎨 ⍨ ${secondItem}`, "font-size:30px;color:blue")
         });
@@ -122,35 +121,45 @@ function basculateToSecondItem() {
 
 basculateToSecondItem()
 
-function addCommaToNumbers(comma) {
+function addCommaToFirstItem(comma) {
     screenDisplay.textContent += comma
     firstItem += comma
 }
 
-// function eraseCommaToNumbers(comma) {
-//     screenDisplay.textContent.replace(comma, "")
-//     firstItem.replace(comma, "")
-// }
+function addCommaToSecondItem(comma) {
+    // screenDisplay.textContent += comma
+    secondItem += comma
+}
 
 function restrictionToCommas() {
-    if(firstItem.startsWith("", 0)) {
-        addCommaToNumbers("0.")
-        if (firstItem.includes(".")) {
-            console.log(`%c🎨 ⍨ `, "Your_CSS_Goes_Here")
-            commaButton.removeEventListener("click", restrictionToCommas)
-        }
+
+    //verifier le first item en 1er
+    if (firstItem.includes(".")) {
+        console.log(`%c🎨 ⍨ point`, "Your_CSS_Goes_Here");
+        // commaButton.removeEventListener("click", restrictionToCommas);
+    } else {
+        addCommaToFirstItem(".")
+        console.log(`%c🎨 ⍨ no point`, "Your_CSS_Goes_Here");
     }
 
+    //passer à la vérification de second item en second lieu
+    if (secondItem.includes(".")) {
+        console.log(`%c🎨 ⍨ point`, "Your_CSS_Goes_Here");
+        // commaButton.removeEventListener("click", restrictionToCommas);
+    } else {
+        addCommaToSecondItem(".")
+        console.log(`%c🎨 ⍨ no point`, "Your_CSS_Goes_Here");
+    }
 }
 
 commaButton.addEventListener("click", restrictionToCommas)
 
 function clearAll(){
-    firstItem = "";
-    secondItem = "";
+    firstItem = "0";
+    secondItem = "0";
     currentOperator = null;
     isSecondItem = false;
-    screenDisplay.textContent = "0";
+    screenDisplay.textContent = "";
 }
 
 acButton.addEventListener("click", () => clearAll())
