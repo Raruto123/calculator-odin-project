@@ -10,14 +10,18 @@ let calculatorButtons = {
     aczpercentage : document.getElementsByClassName("ac-z-percentage")
 }
 let acButton = document.getElementsByClassName("ac")[0];
-let screenDisplay = document.getElementsByClassName("display")[0];
-let screenDisplayOperator = document.getElementsByClassName("displayOperator")[0];
 let commaButton = document.getElementsByClassName("comma")[0];
+let screenElements = document.getElementById("calculator-display").children
+let displayFirstItem = screenElements[0]
+let displayOperator = screenElements[1]
+let displaySecondItem = screenElements[2]
 let firstItem = "0";//1er opérande
 let secondItem = "0";//2eme opérande
 let currentOperator = null;//l'Opérateur du calcul actuel
 let isSecondItem = false;//Savoir si le deuxième nombre est entrain d'être entré
-screenDisplay.textContent = ""
+displayFirstItem.textContent = ""
+displaySecondItem.textContent = ""
+displayOperator.textContent = ""
 
 
 
@@ -27,15 +31,15 @@ function displayNumbersOnScreen(value) {
     // screenDisplay.textContent += value;
     if (!isSecondItem) {
         firstItem += value;
-        screenDisplay.textContent += value;
+        displayFirstItem.textContent += value;
     } else {
         secondItem += value;
-        screenDisplay.textContent += value
+        displaySecondItem.textContent += value
     }
 }
 function displayOperatorsOnScreen(operator) {
     if (operator) {
-        screenDisplay.textContent = operator
+        displayOperator.textContent = operator
     }
 }
 
@@ -64,10 +68,13 @@ function calculate() {
     let num2 = parseFloat(secondItem);
 
     // Appeler la fonction operate
-    let result = operate(num1, num2, currentOperator);
+    let result = operate(num1, num2, currentOperator).toFixed(2);
 
     // Afficher le résultat
-    screenDisplay.textContent = result;
+    displayFirstItem.textContent = result;
+    displayOperator.textContent = "";
+    displaySecondItem.textContent = "";
+
 
     // Réinitialiser les variables
     firstItem = result.toString();  // Le résultat devient le premier nombre pour de futures opérations
@@ -117,7 +124,7 @@ function basculateToSecondItem() {
                 iteration.addEventListener("click", () => calculate());
                 break;
             default:
-                console.log("you done goofed")
+                console.log("No corresponding value found");
         }
     }
 }
@@ -125,12 +132,12 @@ function basculateToSecondItem() {
 basculateToSecondItem()
 
 function addCommaToFirstItem(comma) {
-    screenDisplay.textContent += comma
+    displayFirstItem.textContent += comma
     firstItem += comma
 }
 
 function addCommaToSecondItem(comma) {
-    screenDisplay.textContent += comma
+    displaySecondItem.textContent += comma
     secondItem += comma
 }
 
@@ -165,7 +172,9 @@ function clearAll(){
     secondItem = "0";
     currentOperator = null;
     isSecondItem = false;
-    screenDisplay.textContent = "";
+    displayFirstItem.textContent = "";
+    displaySecondItem.textContent = "";
+    displayOperator.textContent = "";
 }
 
 acButton.addEventListener("click", () => clearAll())
