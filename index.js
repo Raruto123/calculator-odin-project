@@ -19,6 +19,7 @@ let firstItem = "0";//1er opérande
 let secondItem = "0";//2eme opérande
 let currentOperator = null;//l'Opérateur du calcul actuel
 let isSecondItem = false;//Savoir si le deuxième nombre est entrain d'être entré
+let isPressed = false;
 displayFirstItem.textContent = ""
 displaySecondItem.textContent = ""
 displayOperator.textContent = ""
@@ -168,16 +169,21 @@ function restrictionToCommas() {
 commaButton.addEventListener("click", restrictionToCommas)
 
 function clearAll(){
-    firstItem = "0";
-    secondItem = "0";
-    currentOperator = null;
-    isSecondItem = false;
-    displayFirstItem.textContent = "";
-    displaySecondItem.textContent = "";
-    displayOperator.textContent = "";
+    if(isPressed) {
+        firstItem = "0";
+        secondItem = "0";
+        currentOperator = null;
+        isSecondItem = false;
+        displayFirstItem.textContent = "";
+        displaySecondItem.textContent = "";
+        displayOperator.textContent = "";
+    }
+    isPressed = false
 }
 
-acButton.addEventListener("click", () => clearAll())
+acButton.addEventListener("mouseenter", () => isPressed = true);
+acButton.addEventListener("mousedown", () => clearAll());
+
 
 function addOperation() {
     if (firstItem === "") return; // S'assurer que le premier nombre est entré
