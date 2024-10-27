@@ -6,7 +6,7 @@ let beDivide = false;
 let calculatorButtons = {
     numbers : document.getElementsByClassName("numbers"),
     operators : document.getElementsByClassName("operators"),
-    comma : document.getElementsByClassName("comma"),
+    // comma : document.getElementsByClassName("comma"),
     aczpercentage : document.getElementsByClassName("ac-z-percentage")
 }
 let acButton = document.getElementsByClassName("ac")[0];
@@ -16,14 +16,14 @@ let displayFirstItem = screenElements[0]
 let displayOperator = screenElements[1]
 let displaySecondItem = screenElements[2]
 let firstItem = "0";//1er opérande
-let secondItem = "0";//2eme opérande
+let secondItem = "";//2eme opérande
 let currentOperator = null;//l'Opérateur du calcul actuel
 let isSecondItem = false;//Savoir si le deuxième nombre est entrain d'être entré
-let isPressed = false;
+let isACPressed = false;
+let holdTimer;
 displayFirstItem.textContent = ""
 displaySecondItem.textContent = ""
 displayOperator.textContent = ""
-
 
 
 //to see on the display the buttons pressed
@@ -63,6 +63,7 @@ function calculate() {
     if (firstItem && beDivide && secondItem === "0") {
         return alert("La division par 0 est impossible! Ressaisis-toi.")
     }
+    if (secondItem === ".") return;
     
     // Convertir les valeurs en nombres
     let num1 = parseFloat(firstItem);
@@ -169,20 +170,54 @@ function restrictionToCommas() {
 commaButton.addEventListener("click", restrictionToCommas)
 
 function clearAll(){
-    if(isPressed) {
+    if(isACPressed) {
         firstItem = "0";
-        secondItem = "0";
+        secondItem = "";
         currentOperator = null;
         isSecondItem = false;
         displayFirstItem.textContent = "";
         displaySecondItem.textContent = "";
         displayOperator.textContent = "";
     }
-    isPressed = false
+    isACPressed = false
 }
 
-acButton.addEventListener("mouseenter", () => isPressed = true);
-acButton.addEventListener("mousedown", () => clearAll());
+acButton.addEventListener("mousedown", () => {
+
+    holdTimer = setTimeout(() => {
+        isACPressed = true,
+        clearAll()
+    }, 1000)
+
+});
+
+acButton.addEventListener("mouseup", () => {
+    clearTimeout(holdTimer)
+});
+
+acButton.addEventListener("mouseleave", () => {
+    clearTimeout(holdTimer)
+});
+
+function clearOnce() {
+
+    let secondItemLength = secondItem.length;
+    // if (secondItem) {
+    //     console.log(`%c🎨 ⍨ secondItem digit erased`, "Your_CSS_Goes_Here")
+    //     // secondItem = secondItem.slice(0, -1);
+    //     secondItem = secondItem.replace(secondItem[secondItemLength - 1], "");
+    //     displaySecondItem.textContent = secondItem;
+    // }
+    if((beAdd || beMinus || beDivide || beMultiply) && secondItem) {
+        secondItem = secondItem.replace(secondItem[secondItemLength - 1], "");
+        displaySecondItem.textContent = secondItem;
+    } else if((beAdd || beMinus || beMultiply || beDivide) && secondItem === "") {
+        console.log("operator erased")
+        displayOperatorsOnScreen(" ");
+    }
+}
+
+acButton.addEventListener("click", () => clearOnce())
 
 
 function addOperation() {
@@ -219,6 +254,7 @@ function multiplyOperation() {
 }
 
 function divideOperation() {
+
     if (firstItem === "") return; // S'assurer que le premier nombre est entré
 
     beDivide = true;
