@@ -15,7 +15,7 @@ let screenElements = document.getElementById("calculator-display").children
 let displayFirstItem = screenElements[0]
 let displayOperator = screenElements[1]
 let displaySecondItem = screenElements[2]
-let firstItem = "0";//1er opérande
+let firstItem = "";//1er opérande
 let secondItem = "";//2eme opérande
 let currentOperator = null;//l'Opérateur du calcul actuel
 let isSecondItem = false;//Savoir si le deuxième nombre est entrain d'être entré
@@ -63,7 +63,7 @@ function calculate() {
     if (firstItem && beDivide && secondItem === "0") {
         return alert("La division par 0 est impossible! Ressaisis-toi.")
     }
-    if (secondItem === ".") return;
+    if (secondItem.endsWith(".")) return;
     
     // Convertir les valeurs en nombres
     let num1 = parseFloat(firstItem);
@@ -171,7 +171,7 @@ commaButton.addEventListener("click", restrictionToCommas)
 
 function clearAll(){
     if(isACPressed) {
-        firstItem = "0";
+        firstItem = "";
         secondItem = "";
         currentOperator = null;
         isSecondItem = false;
@@ -202,6 +202,7 @@ acButton.addEventListener("mouseleave", () => {
 function clearOnce() {
 
     let secondItemLength = secondItem.length;
+    let firstItemLength = firstItem.length;
     // if (secondItem) {
     //     console.log(`%c🎨 ⍨ secondItem digit erased`, "Your_CSS_Goes_Here")
     //     // secondItem = secondItem.slice(0, -1);
@@ -212,8 +213,16 @@ function clearOnce() {
         secondItem = secondItem.replace(secondItem[secondItemLength - 1], "");
         displaySecondItem.textContent = secondItem;
     } else if((beAdd || beMinus || beMultiply || beDivide) && secondItem === "") {
-        console.log("operator erased")
+        console.log("operator erased");
+        beAdd = false;
+        beMultiply = false;
+        beDivide = false;
+        beMinus = false;
+        isSecondItem = false;
         displayOperatorsOnScreen(" ");
+    } else if (firstItem && (!beAdd || !beMinus || !beMultiply || !beDivide) && secondItem === "") {
+        firstItem = firstItem.replace(firstItem[firstItemLength - 1], "");
+        displayFirstItem.textContent = firstItem;
     }
 }
 
@@ -231,13 +240,25 @@ function addOperation() {
 };
 
 function minusOperation() {
-    if (firstItem === "") return; // S'assurer que le premier nombre est entré
+    if (firstItem.startsWith("")) {
+        isSecondItem = false;
+        beMinus = true;
+        beAdd = false;
+        beMultiply = false;
+        beDivide = false;
+        isSecondItem = true;
+        firstItem = firstItem.concat("-", firstItem);
+        //juste coller un moins devant firstItem pas besoin de mettre un autre affichage
+        console.log(`%c🎨 ⍨ reached`, "Your_CSS_Goes_Here");
+    } else {
+        beMinus = true;
+        beAdd = false;
+        beMultiply = false;
+        beDivide = false;
+        isSecondItem = true;
+    }; // S'assurer que le premier nombre est entré
 
-    beMinus = true;
-    beAdd = false;
-    beMultiply = false;
-    beDivide = false;
-    isSecondItem = true;
+
 
 
 }
