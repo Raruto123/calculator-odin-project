@@ -11,7 +11,7 @@ let calculatorButtons = {
 }
 let acButton = document.getElementsByClassName("ac")[0];
 let commaButton = document.getElementsByClassName("comma")[0];
-let screenElements = document.getElementById("calculator-display").children
+let screenElements = document.getElementById("calculator-display").children;
 let displayFirstItem = screenElements[0]
 let displayOperator = screenElements[1]
 let displaySecondItem = screenElements[2]
@@ -21,9 +21,10 @@ let currentOperator = null;//l'Opérateur du calcul actuel
 let isSecondItem = false;//Savoir si le deuxième nombre est entrain d'être entré
 let isACPressed = false;
 let holdTimer;
-displayFirstItem.textContent = ""
-displaySecondItem.textContent = ""
-displayOperator.textContent = ""
+displayFirstItem.textContent = "";
+displaySecondItem.textContent = "";
+displayOperator.textContent = "";
+let minusSign = "-";
 
 
 //to see on the display the buttons pressed
@@ -39,7 +40,12 @@ function displayNumbersOnScreen(value) {
     }
 }
 function displayOperatorsOnScreen(operator) {
+    if (operator === "-" && firstItem === "") {
+        console.log(`%c🎨 ⍨ display operator wait`, "Your_CSS_Goes_Here")
+        return null
+    } 
     if (operator) {
+        console.log(`%c🎨 ⍨lel `, "Your_CSS_Goes_Here")
         displayOperator.textContent = operator
     }
 }
@@ -223,7 +229,8 @@ function clearOnce() {
     } else if (firstItem && (!beAdd || !beMinus || !beMultiply || !beDivide) && secondItem === "") {
         firstItem = firstItem.replace(firstItem[firstItemLength - 1], "");
         displayFirstItem.textContent = firstItem;
-    }
+        console.log("firstItem erased");
+    } 
 }
 
 acButton.addEventListener("click", () => clearOnce())
@@ -240,14 +247,14 @@ function addOperation() {
 };
 
 function minusOperation() {
-    if (firstItem.startsWith("")) {
+    if (firstItem === "") {
         isSecondItem = false;
         beMinus = true;
         beAdd = false;
         beMultiply = false;
         beDivide = false;
-        isSecondItem = true;
-        firstItem = firstItem.concat("-", firstItem);
+        firstItem = firstItem.concat(minusSign, firstItem);
+        displayFirstItem.textContent = firstItem
         //juste coller un moins devant firstItem pas besoin de mettre un autre affichage
         console.log(`%c🎨 ⍨ reached`, "Your_CSS_Goes_Here");
     } else {
@@ -257,8 +264,6 @@ function minusOperation() {
         beDivide = false;
         isSecondItem = true;
     }; // S'assurer que le premier nombre est entré
-
-
 
 
 }
