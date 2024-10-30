@@ -40,13 +40,12 @@ function displayNumbersOnScreen(value) {
     }
 }
 function displayOperatorsOnScreen(operator) {
-    if (operator === "-" && firstItem === "") {
-        console.log(`%c🎨 ⍨ display operator wait`, "Your_CSS_Goes_Here")
-        return null
-    } 
-    if (operator) {
-        console.log(`%c🎨 ⍨lel `, "Your_CSS_Goes_Here")
-        displayOperator.textContent = operator
+    
+    if ( operator === "-" && firstItem === "-")  {
+        console.log(`%c🎨 ⍨ display operator wait`, "Your_CSS_Goes_Here");
+        displayOperator.textContent = "";
+    } else if (operator) {
+        displayOperator.textContent = operator;
     }
 }
 
@@ -69,14 +68,22 @@ function calculate() {
     if (firstItem && beDivide && secondItem === "0") {
         return alert("La division par 0 est impossible! Ressaisis-toi.")
     }
-    if (secondItem.endsWith(".")) return;
+    if (secondItem === ".") return;
+    if (firstItem === ".") return;
     
     // Convertir les valeurs en nombres
     let num1 = parseFloat(firstItem);
     let num2 = parseFloat(secondItem);
 
     // Appeler la fonction operate
-    let result = operate(num1, num2, currentOperator).toFixed(2);
+    let result;
+    if (firstItem.includes(".") || secondItem.includes(".")) {
+        result = operate(num1, num2, currentOperator).toFixed(2);
+    } else if((firstItem.includes(".") || secondItem.includes(".")) && beDivide) {
+        result = operate(num1, num2, currentOperator).toFixed(2)
+    } else {
+        result = operate(num1, num2, currentOperator)
+    }
 
     // Afficher le résultat
     displayFirstItem.textContent = result;
@@ -89,6 +96,10 @@ function calculate() {
     secondItem = "";
     currentOperator = null;
     isSecondItem = false;
+    beAdd = false;
+    beMultiply = false;
+    beDivide = false;
+    beMinus = false;
 }
 
 function basculateToSecondItem() {
