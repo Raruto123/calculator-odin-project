@@ -6,7 +6,6 @@ let beDivide = false;
 let calculatorButtons = {
     numbers : document.getElementsByClassName("numbers"),
     operators : document.getElementsByClassName("operators"),
-    // comma : document.getElementsByClassName("comma"),
     aczpercentage : document.getElementsByClassName("ac-z-percentage")
 }
 let acButton = document.getElementsByClassName("ac")[0];
@@ -74,6 +73,19 @@ function calculate() {
     // Convertir les valeurs en nombres
     let num1 = parseFloat(firstItem);
     let num2 = parseFloat(secondItem);
+
+    if (displayFirstItem.textContent.includes("%")) {
+        let percentage = 1/100;
+        num1 *= percentage;
+        console.log(num1)
+    } else if (displaySecondItem.textContent.includes("%")) {
+        let percentage = 1/100;
+        num2 *= percentage;
+    } else if (displayFirstItem.textContent.includes("%") && displaySecondItem.textContent.includes("%")) {
+        let percentage = 1/100;
+        num1 *= percentage;
+        num2 *= percentage;
+    }
 
     // Appeler la fonction operate
     let result;
@@ -247,8 +259,42 @@ function clearOnce() {
 acButton.addEventListener("click", () => clearOnce())
 
 
+function addPercentageToFirstItem(percentage) {
+    displayFirstItem.textContent += percentage;
+}
+
+function addPercentageToSecondItem(percentage) {
+    displaySecondItem.textContent += percentage;
+}
+
+function restrictionToPercentages() {
+    if (!isSecondItem) {
+        //verifier le first item en 1er
+        if (displayFirstItem.textContent.includes("%")) {
+        console.log(`%c🎨 ⍨ percentage`, "Your_CSS_Goes_Here");
+        // commaButton.removeEventListener("click", restrictionToCommas);
+    } else {
+        addPercentageToFirstItem("%");
+        console.log(`%c🎨 ⍨ no percentage`, "Your_CSS_Goes_Here");
+    }
+    } else {
+        //passer à la vérification de second item en second lieu
+        if (displaySecondItem.textContent.includes("%")) {
+        console.log(`%c🎨 ⍨ percentage`, "Your_CSS_Goes_Here");
+        // commaButton.removeEventListener("click", restrictionToCommas);
+    } else {
+        addPercentageToSecondItem("%");
+        console.log(`%c🎨 ⍨ no percentage`, "Your_CSS_Goes_Here");
+        }
+    }
+}
+
+calculatorButtons.aczpercentage[1].addEventListener("click", restrictionToPercentages )
+
+
+
 function addOperation() {
-    if (firstItem === "") return; // S'assurer que le premier nombre est entré
+    if (firstItem === "") return //console.log("test"); à voir après // S'assurer que le premier nombre est entré
     beAdd  = true;
     beMinus = false;
     beDivide = false;
@@ -265,7 +311,7 @@ function minusOperation() {
         beMultiply = false;
         beDivide = false;
         firstItem = firstItem.concat(minusSign, firstItem);
-        displayFirstItem.textContent = firstItem
+        displayFirstItem.textContent = firstItem;
         //juste coller un moins devant firstItem pas besoin de mettre un autre affichage
         console.log(`%c🎨 ⍨ reached`, "Your_CSS_Goes_Here");
     } else {
