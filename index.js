@@ -43,6 +43,10 @@ function displayOperatorsOnScreen(operator) {
     if ( operator === "-" && firstItem === "-")  {
         console.log(`%c🎨 ⍨ display operator wait`, "Your_CSS_Goes_Here");
         displayOperator.textContent = "";
+    } else if ((operator === "+" || operator === "x" || operator === "÷" ) && firstItem === "") {
+        console.log(firstItem)
+        console.log(`%c🎨 ⍨ operator + ou x ou /`, "Your_CSS_Goes_Here");
+        displayOperator.textContent = "";
     } else if (operator) {
         displayOperator.textContent = operator;
     }
@@ -69,6 +73,7 @@ function calculate() {
     }
     if (secondItem === ".") return;
     if (firstItem === ".") return;
+    if (firstItem.endsWith(minusSign)) return;
     
     // Convertir les valeurs en nombres
     let num1 = parseFloat(firstItem);
@@ -253,7 +258,7 @@ function clearOnce() {
         firstItem = firstItem.replace(firstItem[firstItemLength - 1], "");
         displayFirstItem.textContent = firstItem;
         console.log("firstItem erased");
-    } 
+    }
 }
 
 acButton.addEventListener("click", () => clearOnce())
@@ -294,12 +299,22 @@ calculatorButtons.aczpercentage[1].addEventListener("click", restrictionToPercen
 
 
 function addOperation() {
-    if (firstItem === "") return //console.log("test"); à voir après // S'assurer que le premier nombre est entré
-    beAdd  = true;
-    beMinus = false;
-    beDivide = false;
-    beMultiply = false;
-    isSecondItem = true;
+
+    if (firstItem === "") {
+        isSecondItem = false;
+        beAdd  = false;
+        beMinus = false;
+        beDivide = false;
+        beMultiply = false;
+        //juste coller un moins devant firstItem pas besoin de mettre un autre affichage
+        console.log(`%c🎨 ⍨ reached`, "Your_CSS_Goes_Here");
+    } else {
+        beAdd  = true;
+        beMinus = false;
+        beDivide = false;
+        beMultiply = false;
+        isSecondItem = true;
+    }; // S'assurer que le premier nombre est entré
 
 };
 
@@ -326,25 +341,43 @@ function minusOperation() {
 }
 
 function multiplyOperation() {
-    if (firstItem === "") return; // S'assurer que le premier nombre est entré
+    if (firstItem === "") {
+        isSecondItem = false;
+        beAdd  = false;
+        beMinus = false;
+        beDivide = false;
+        beMultiply = false;
+        //juste coller un moins devant firstItem pas besoin de mettre un autre affichage
+        console.log(`%c🎨 ⍨ reached`, "Your_CSS_Goes_Here");
+    } else {
+        beMultiply = true;
+        beAdd = false;
+        beMinus = false;
+        beDivide = false;
+        isSecondItem = true;
+    }; // S'assurer que le premier nombre est entré
 
-    beMultiply = true;
-    beAdd = false;
-    beMinus = false;
-    beDivide = false;
-    isSecondItem = true;
 
 }
 
 function divideOperation() {
 
-    if (firstItem === "") return; // S'assurer que le premier nombre est entré
+    if (firstItem === "") {
+        isSecondItem = false;
+        beAdd  = false;
+        beMinus = false;
+        beDivide = false;
+        beMultiply = false;
+        //juste coller un moins devant firstItem pas besoin de mettre un autre affichage
+        console.log(`%c🎨 ⍨ reached`, "Your_CSS_Goes_Here");
+    } else {
+        beDivide = true;
+        beMultiply = false;
+        beAdd = false;
+        beMinus = false;
+        isSecondItem = true;
+    }; // S'assurer que le premier nombre est entré
 
-    beDivide = true;
-    beMultiply = false;
-    beAdd = false;
-    beMinus = false;
-    isSecondItem = true;
 
 
 }
