@@ -79,10 +79,16 @@ function calculate() {
     let num1 = parseFloat(firstItem);
     let num2 = parseFloat(secondItem);
 
+    if (displayFirstItem.textContent.includes("(-" + firstItem + ")")) {
+        num1 = (-num1)
+        console.log(`%c🎨 ⍨ num1`, "color:yellowgreen; font-weight:bold", num1);
+    
+    } 
+
     if (displayFirstItem.textContent.includes("%")) {
         let percentage = 1/100;
         num1 *= percentage;
-        console.log(num1)
+        console.log(num1);
     } else if (displaySecondItem.textContent.includes("%")) {
         let percentage = 1/100;
         num2 *= percentage;
@@ -261,7 +267,7 @@ function clearOnce() {
     }
 }
 
-acButton.addEventListener("click", () => clearOnce())
+acButton.addEventListener("click", () => clearOnce());
 
 
 function addPercentageToFirstItem(percentage) {
@@ -294,7 +300,19 @@ function restrictionToPercentages() {
     }
 }
 
-calculatorButtons.aczpercentage[1].addEventListener("click", restrictionToPercentages )
+calculatorButtons.aczpercentage[1].addEventListener("click", restrictionToPercentages);
+
+function changingSign() {
+    displayFirstItem.textContent = "(-" + firstItem + ")";
+}
+
+function changeSign() {
+    changingSign()
+}
+
+
+calculatorButtons.aczpercentage[0].addEventListener("click", changeSign);
+
 
 
 
@@ -356,7 +374,6 @@ function multiplyOperation() {
         beDivide = false;
         isSecondItem = true;
     }; // S'assurer que le premier nombre est entré
-
 
 }
 
