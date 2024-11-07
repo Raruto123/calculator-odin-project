@@ -80,16 +80,23 @@ function calculate() {
     let num2 = parseFloat(secondItem);
 
     if (displayFirstItem.textContent.includes("(-" + firstItem + ")")) {
-        num1 = (-num1)
+        num1 = (-num1);
         console.log(`%c🎨 ⍨ num1`, "color:yellowgreen; font-weight:bold", num1);
-    
-    } 
+    } else if (displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
+        num2 = (-num2);
+        console.log(`%c🎨 ⍨ num2`, "color:green; font-weight:bold", num2);
+    } else if ((displayFirstItem.textContent.includes("(-" + firstItem + ")")) && (displaySecondItem.textContent.includes("(-" + secondItem + ")"))) {
+        num1 = (-num1);       
+        num2 = (-num2);
+        console.log(`%c🎨 ⍨ displayFirstItem.textContent`, "color:pink; font-weight:bold", displayFirstItem.textContent);
+        console.log(`%c🎨 ⍨ displaySecondItem.textContent`, "color:pink; font-weight:bold", displaySecondItem.textContent);
+    }
 
-    if (displayFirstItem.textContent.includes("%")) {
+    if (displayFirstItem.textContent.includes("%") && !displaySecondItem.textContent.includes("%")) {
         let percentage = 1/100;
         num1 *= percentage;
         console.log(num1);
-    } else if (displaySecondItem.textContent.includes("%")) {
+    } else if (displaySecondItem.textContent.includes("%") && !displayFirstItem.textContent.includes("%") ) {
         let percentage = 1/100;
         num2 *= percentage;
     } else if (displayFirstItem.textContent.includes("%") && displaySecondItem.textContent.includes("%")) {
@@ -305,13 +312,32 @@ calculatorButtons.aczpercentage[1].addEventListener("click", restrictionToPercen
 function changingSign() {
     displayFirstItem.textContent = "(-" + firstItem + ")";
 }
+function changingSignOfSecondItem() {
+    displaySecondItem.textContent = "(-" + secondItem + ")";
+}
+function restrictionToChangeSign() {
 
-function changeSign() {
-    changingSign()
+    if (!isSecondItem) {
+        //verifier le first item en 1er
+        if (!firstItem) {
+        console.log(`%c🎨 ⍨ firstItem vide`, "Your_CSS_Goes_Here");
+    } else {
+        changingSign();
+        console.log(`%c🎨 ⍨ firstItem modifié`, "Your_CSS_Goes_Here");
+    }
+    } else {
+        //passer à la vérification de second item en second lieu
+        if (!secondItem) {
+        console.log(`%c🎨 ⍨ secondItem vide`, "Your_CSS_Goes_Here");
+    } else {
+        changingSignOfSecondItem();
+        console.log(`%c🎨 ⍨ secondItem modifié`, "Your_CSS_Goes_Here");
+        }
+    }
 }
 
 
-calculatorButtons.aczpercentage[0].addEventListener("click", changeSign);
+calculatorButtons.aczpercentage[0].addEventListener("click", restrictionToChangeSign);
 
 
 
