@@ -24,7 +24,8 @@ displayFirstItem.textContent = "";
 displaySecondItem.textContent = "";
 displayOperator.textContent = "";
 let minusSign = "-";
-let isSignChanged = false;
+let isFirstItemSignChanged = false;
+let isSecondItemSignChanged = false;
 
 
 //to see on the display the buttons pressed
@@ -80,9 +81,9 @@ function calculate() {
     let num1 = parseFloat(firstItem);
     let num2 = parseFloat(secondItem);
 
-    if (displayFirstItem.textContent.includes("(-" + firstItem + ")") && !displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
+    if ((displayFirstItem.textContent.includes("(-" + firstItem + ")") || displayFirstItem.textContent.includes("(-" + firstItem + ").")) && !displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
         num1 = (-num1);
-        console.log(`%c🎨 ⍨ num1`, "color:yellowgreen; font-weight:bold", num1);
+        console.log(`%c🎨 ⍨ num1`, "color:yellowgreen; font-weight:bold", displayFirstItem.textContent);
     } else if (displaySecondItem.textContent.includes("(-" + secondItem + ")") && !displayFirstItem.textContent.includes("(-" + firstItem + ")")) {
         num2 = (-num2);
         console.log(`%c🎨 ⍨ num2`, "color:green; font-weight:bold", num2);
@@ -131,6 +132,8 @@ function calculate() {
     beMultiply = false;
     beDivide = false;
     beMinus = false;
+    isFirstItemSignChanged = false;
+    isSecondItemSignChanged = false;
 }
 
 function basculateToSecondItem() {
@@ -226,6 +229,9 @@ function clearAll(){
         displayFirstItem.textContent = "";
         displaySecondItem.textContent = "";
         displayOperator.textContent = "";
+        isFirstItemSignChanged = false;
+        isSecondItemSignChanged = false
+
     }
     isACPressed = false
 }
@@ -272,6 +278,7 @@ function clearOnce() {
         firstItem = firstItem.replace(firstItem[firstItemLength - 1], "");
         displayFirstItem.textContent = firstItem;
         console.log("firstItem erased");
+        isFirstItemSignChanged = false
     }
 }
 
@@ -310,34 +317,42 @@ function restrictionToPercentages() {
 
 calculatorButtons.aczpercentage[1].addEventListener("click", restrictionToPercentages);
 
-function changingSign() {
-    displayFirstItem.textContent = "(-" + firstItem + ")";
+function changingSignOfFirstItem() {
+    isFirstItemSignChanged ? displayFirstItem.textContent = "(-" + firstItem + ")" : displayFirstItem.textContent = firstItem;
 }
 function changingSignOfSecondItem() {
-    displaySecondItem.textContent -= "(-" + secondItem + ")";
-    //displayFirstItem.textContent = firstItem;
+    
+    isSecondItemSignChanged ? displaySecondItem.textContent = "(-" + secondItem + ")" : displaySecondItem.textContent = secondItem;
 }
 function restrictionToChangeSign() {
 
-    isSignChanged = !isSignChanged;
-    console.log(`%c🎨 ⍨ isSignChanged`, "color:green; font-weight:bold", isSignChanged);
 
     if (!isSecondItem) {
         //verifier le first item en 1er
         if (!firstItem) {
-            
             console.log(`%c🎨 ⍨ firstItem vide`, "Your_CSS_Goes_Here");
-        } else {
-            changingSign();
+        } else if (firstItem && isFirstItemSignChanged === false){
+            isFirstItemSignChanged = true;
+            console.log(`%c🎨 ⍨ isSignChanged`, "color:green; font-weight:bold", isFirstItemSignChanged);
+
+            changingSignOfFirstItem();
             console.log(`%c🎨 ⍨ firstItem modifié`, "Your_CSS_Goes_Here");
+        } else if (firstItem && isFirstItemSignChanged === true) {
+            isFirstItemSignChanged = false;
+            console.log(`%c🎨 ⍨ isSignChanged`, "color:green; font-weight:bold", isFirstItemSignChanged);
+            changingSignOfFirstItem();
         }
     } else {
         //passer à la vérification de second item en second lieu
         if (!secondItem) {
-        console.log(`%c🎨 ⍨ secondItem vide`, "Your_CSS_Goes_Here");
-    } else {
-        changingSignOfSecondItem();
-        console.log(`%c🎨 ⍨ secondItem modifié`, "Your_CSS_Goes_Here");
+            console.log(`%c🎨 ⍨ secondItem vide`, "Your_CSS_Goes_Here");
+        } else if (secondItem && isSecondItemSignChanged === false){
+            isSecondItemSignChanged = true;
+            changingSignOfSecondItem();
+            console.log(`%c🎨 ⍨ secondItem modifié`, "Your_CSS_Goes_Here");
+        } else if (secondItem && isSecondItemSignChanged === true) {
+            isSecondItemSignChanged = false;
+            changingSignOfSecondItem();
         }
     }
 }
@@ -371,7 +386,7 @@ function addOperation() {
 function minusOperation() {
     if (firstItem === "") {
         isSecondItem = false;
-        beMinus = true;
+        beMinus = false;
         beAdd = false;
         beMultiply = false;
         beDivide = false;
