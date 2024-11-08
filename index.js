@@ -24,6 +24,7 @@ displayFirstItem.textContent = "";
 displaySecondItem.textContent = "";
 displayOperator.textContent = "";
 let minusSign = "-";
+let isSignChanged = false;
 
 
 //to see on the display the buttons pressed
@@ -79,10 +80,10 @@ function calculate() {
     let num1 = parseFloat(firstItem);
     let num2 = parseFloat(secondItem);
 
-    if (displayFirstItem.textContent.includes("(-" + firstItem + ")")) {
+    if (displayFirstItem.textContent.includes("(-" + firstItem + ")") && !displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
         num1 = (-num1);
         console.log(`%c🎨 ⍨ num1`, "color:yellowgreen; font-weight:bold", num1);
-    } else if (displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
+    } else if (displaySecondItem.textContent.includes("(-" + secondItem + ")") && !displayFirstItem.textContent.includes("(-" + firstItem + ")")) {
         num2 = (-num2);
         console.log(`%c🎨 ⍨ num2`, "color:green; font-weight:bold", num2);
     } else if ((displayFirstItem.textContent.includes("(-" + firstItem + ")")) && (displaySecondItem.textContent.includes("(-" + secondItem + ")"))) {
@@ -313,18 +314,23 @@ function changingSign() {
     displayFirstItem.textContent = "(-" + firstItem + ")";
 }
 function changingSignOfSecondItem() {
-    displaySecondItem.textContent = "(-" + secondItem + ")";
+    displaySecondItem.textContent -= "(-" + secondItem + ")";
+    //displayFirstItem.textContent = firstItem;
 }
 function restrictionToChangeSign() {
+
+    isSignChanged = !isSignChanged;
+    console.log(`%c🎨 ⍨ isSignChanged`, "color:green; font-weight:bold", isSignChanged);
 
     if (!isSecondItem) {
         //verifier le first item en 1er
         if (!firstItem) {
-        console.log(`%c🎨 ⍨ firstItem vide`, "Your_CSS_Goes_Here");
-    } else {
-        changingSign();
-        console.log(`%c🎨 ⍨ firstItem modifié`, "Your_CSS_Goes_Here");
-    }
+            
+            console.log(`%c🎨 ⍨ firstItem vide`, "Your_CSS_Goes_Here");
+        } else {
+            changingSign();
+            console.log(`%c🎨 ⍨ firstItem modifié`, "Your_CSS_Goes_Here");
+        }
     } else {
         //passer à la vérification de second item en second lieu
         if (!secondItem) {
