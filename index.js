@@ -81,7 +81,7 @@ function calculate() {
     let num1 = parseFloat(firstItem);
     let num2 = parseFloat(secondItem);
 
-    if ((displayFirstItem.textContent.includes("(-" + firstItem + ")") || displayFirstItem.textContent.includes("(-" + firstItem + ").")) && !displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
+    if ((displayFirstItem.textContent.includes("(-" + firstItem + ")") && firstItem.includes(".")) && !displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
         num1 = (-num1);
         console.log(`%c🎨 ⍨ num1`, "color:yellowgreen; font-weight:bold", displayFirstItem.textContent);
     } else if (displaySecondItem.textContent.includes("(-" + secondItem + ")") && !displayFirstItem.textContent.includes("(-" + firstItem + ")")) {
