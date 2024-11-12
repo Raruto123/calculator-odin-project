@@ -81,13 +81,13 @@ function calculate() {
     let num1 = parseFloat(firstItem);
     let num2 = parseFloat(secondItem);
 
-    if ((displayFirstItem.textContent.includes("(-" + firstItem + ")") && firstItem.includes(".")) && !displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
+    if (displayFirstItem.textContent.includes("(-" + firstItem + ")") && !displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
         num1 = (-num1);
         console.log(`%c🎨 ⍨ num1`, "color:yellowgreen; font-weight:bold", displayFirstItem.textContent);
     } else if (displaySecondItem.textContent.includes("(-" + secondItem + ")") && !displayFirstItem.textContent.includes("(-" + firstItem + ")")) {
         num2 = (-num2);
         console.log(`%c🎨 ⍨ num2`, "color:green; font-weight:bold", num2);
-    } else if ((displayFirstItem.textContent.includes("(-" + firstItem + ")")) && (displaySecondItem.textContent.includes("(-" + secondItem + ")"))) {
+    } else if (displayFirstItem.textContent.includes("(-" + firstItem + ")") && displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
         num1 = (-num1);       
         num2 = (-num2);
         console.log(`%c🎨 ⍨ displayFirstItem.textContent`, "color:pink; font-weight:bold", displayFirstItem.textContent);
@@ -111,7 +111,7 @@ function calculate() {
     let result;
     if (firstItem.includes(".") || secondItem.includes(".")) {
         result = operate(num1, num2, currentOperator).toFixed(2);
-    } else if((firstItem.includes(".") || secondItem.includes(".")) && beDivide) {
+    } else if((firstItem.includes(".") || secondItem.includes(".")) || beDivide) {
         result = operate(num1, num2, currentOperator).toFixed(2)
     } else {
         result = operate(num1, num2, currentOperator)
@@ -177,7 +177,7 @@ function basculateToSecondItem() {
                 iteration.addEventListener("click", () => calculate());
                 break;
             default:
-                console.log("No corresponding value found");
+                return;
         }
     }
 }
@@ -198,7 +198,7 @@ function restrictionToCommas() {
 
     if (!isSecondItem) {
             //verifier le first item en 1er
-    if (firstItem.includes(".")) {
+    if (firstItem.includes(".") || displayFirstItem.textContent.includes("(-" + firstItem + ")")) {
         console.log(`%c🎨 ⍨ point`, "Your_CSS_Goes_Here");
         // commaButton.removeEventListener("click", restrictionToCommas);
     } else {
@@ -207,7 +207,7 @@ function restrictionToCommas() {
     }
     } else {
             //passer à la vérification de second item en second lieu
-    if (secondItem.includes(".")) {
+    if (secondItem.includes(".") || displaySecondItem.textContent.includes("(-" + secondItem + ")")) {
         console.log(`%c🎨 ⍨ point`, "Your_CSS_Goes_Here");
         // commaButton.removeEventListener("click", restrictionToCommas);
     } else {
@@ -461,3 +461,124 @@ function operate(itemOne, itemTwo, operator) {
 
     return results;
 }
+
+
+//KEYBOARD MANAGEMENT
+
+window.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.defaultPrevented) {
+        return; // Do nothing if the event was already processed
+      }
+  
+      switch (event.key) {
+        case "0":
+            // Do something for "down arrow" key press.
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "1" :
+            // Do something for "down arrow" key press.
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "2":
+            // Do something for "down arrow" key press.
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+           } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "3":
+            // Do something for "down arrow" key press.
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "4":
+            // Do something for "down arrow" key press.
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "5":
+            // Do something for "down arrow" key press.
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "6":
+            // Do something for "down arrow" key press.
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "7":
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "8":
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "9":
+            if (!isSecondItem) {
+                firstItem += event.key;
+                displayFirstItem.textContent = firstItem;
+            } else {
+                secondItem += event.key;
+                displaySecondItem.textContent = secondItem;
+            }
+            break;
+        case "Backspace":
+            console.log(`%c🎨 ⍨ backspace`, "Your_CSS_Goes_Here")
+            clearOnce();
+        default:
+          return; // Quit when this doesn't handle the key event.
+      }
+  
+      // Cancel the default action to avoid it being handled twice
+      event.preventDefault();
+    },
+    true,
+  );
