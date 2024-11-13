@@ -5,15 +5,23 @@ html {font-size: 100%;}
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    /* background-color: red; */
     /* display: flex;
     justify-content: center;
     padding-top: 200px; */
 }
 
+#appTitle {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
 
 #calculator {
     background-color: rgb(44, 45, 52);
-    border: 1px red solid;
+    border: 1px rgb(121, 100, 100) solid;
     border-radius: 15px;
     width: 250px;
     height: 400px;
@@ -33,8 +41,28 @@ html {font-size: 100%;}
     background-color: rgb(203, 77, 67);
 }
 
+.exit-button div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    cursor: default;
+}
+
 .reduce-button {
     background-color: rgb(245, 191, 79);
+}
+
+.reduce-button div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    cursor: default;
 }
 
 .void-button {
@@ -44,12 +72,9 @@ html {font-size: 100%;}
 
 
 #calculator-display {
-    /* border: 1px solid yellow; */
-    /* background-color: red; */
     display: flex;
     justify-content: flex-end;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    /* font-size: 0.5rem; */
     color: white;
     overflow-y: hidden;
     overflow-x: auto;
@@ -67,12 +92,8 @@ html {font-size: 100%;}
 #calculator-display p {
     margin-right: 3px;
 }
-#calculator-display {
-    outline: 1px solid red;
-}
 
 .calculator-buttons {
-    /* background-color: green; */
     width: 100%;
     height: 80%;
     display: flex;
@@ -93,8 +114,6 @@ html {font-size: 100%;}
 }
 
 .calculator-buttons button:active {
-    /* filter: brightness(1); */
-    /* background-color: rgb(255 255 255/ 0.1); */
     background-color: hsla(330, 22%, 88%, 0.9);
 }
 
@@ -105,9 +124,7 @@ html {font-size: 100%;}
 .ac-z-percentage {
     background-color: rgb(119, 118, 126);
 }
-/* #ac button:active {
-    background-color: hsla(330, 22%, 88%, 0.9);
-} */
+
 .ac {
     background-color: rgb(119, 118, 126);
 }

@@ -8,11 +8,20 @@
 </head>
 <body>
     <div id="container">
+        <p id="appTitle">IOS-like Calculator</p>
         <div id="calculator">
             <div class="calculator-utility-buttons">
-                <div class="exit-button">❌</div>
-                <div class="reduce-button">➖</div>
-                <div class="void-button">3</div>
+                <div class="exit-button">
+                    <div>
+                        X
+                    </div>
+                </div>
+                <div class="reduce-button">
+                    <div>
+                        －
+                    </div>
+                </div>
+                <div class="void-button"></div>
             </div>
             <div id="calculator-display">
                 <p class="display-first-item"></p>
@@ -20,26 +29,26 @@
                 <p class="display-second-item"></p>
             </div>
             <div class="calculator-buttons">
-                <button class="ac">AC</button>
-                <button class="ac-z-percentage">+/-</button>
-                <button class="ac-z-percentage" value="%">%</button>
-                <button class="operators" value="÷">÷</button>
+                <button class="ac" title="Clear Once/All">AC</button>
+                <button class="ac-z-percentage" title="Change Sign">+/-</button>
+                <button class="ac-z-percentage" value="%" title="Per Cent">%</button>
+                <button class="operators" value="/" title="Divide">÷</button>
                 <button class="numbers" value="7">7</button>
                 <button class="numbers" value="8">8</button>
                 <button class="numbers" value="9">9</button>
-                <button class="operators" value="x">X</button>
+                <button class="operators" value="*" title="Multiply">X</button>
                 <button class="numbers" value="4">4</button>
                 <button class="numbers" value="5">5</button>
                 <button class="numbers" value="6">6</button>
-                <button class="operators" value="-">-</button>
+                <button class="operators" value="-" title="Subtract">-</button>
                 <button class="numbers" value="1">1</button>
                 <button class="numbers" value="2">2</button>
                 <button class="numbers" value="3">3</button>
-                <button class="operators" value="+">+</button>
+                <button class="operators" value="+" title="Add">+</button>
                 <button class="phone">📱</button>
                 <button class="numbers" value="0">0</button>
                 <button class="comma" value=".">.</button>
-                <button class="operators" >=</button>
+                <button class="operators" title="Equal">=</button>
             </div>
         </div>
     </div>
